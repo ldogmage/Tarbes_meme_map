@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>塔布往事地图</title>
+    
+    <!-- 本地Leaflet CSS -->
+    <link rel="stylesheet" href="css/leaflet.css" />
+    
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f0f0f0;
+        }
+        .info {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+        }
+        .legend {
+            line-height: 18px;
+            color: #555;
+        }
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+            border-radius: 2px;
+        }
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: rgba(255,255,255,0.9);
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .popup-content h3 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .popup-content p {
+            margin: 8px 0;
+        }
+        .header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.9);
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>塔布往事地图</h1>
+    </div>
+    
+    <div id="map"></div>
+    <div id="loading" class="loading">正在加载地图数据...</div>
+
+    <!-- 本地Leaflet JS -->
+    <script src="js/leaflet.js"></script>
+    
+    <script>
+        // 修复Leaflet的图标路径问题
+        delete L.Icon.Default.prototype._getIconUrl;
+        L.Icon.Default.mergeOptions({
+            iconRetinaUrl: 'images/marker-icon-2x.png',
+            iconUrl: 'images/marker-icon.png',
+            shadowUrl: 'images/marker-shadow.png',
+        });
+
+        // 初始化地图
+        var map = L.map('map').setView([39.9, 116.3], 10);
+        var geojsonLayer;
+
+        // 添加本地底图图层 - 使用OpenStreetMap，但也可以替换为本地瓦片
+        // 注意：要完全本地化，需要下载并托管地图瓦片，这需要大量存储空间
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // 加载本地GeoJSON数据
+        fetch('data/Tarbes_meme_map.geojson')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('无法加载地图数据文件');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // 隐藏加载提示
+                document.getElementById('loading').style.display = 'none';
+                
+                // 创建GeoJSON图层
+                geojsonLayer = L.geoJSON(data, {
+                    style: function(feature) {
+                        // 为不同区域设置不同颜色
+                        var color = getColor(feature.properties.value || 0);
+                        return {
+                            fillColor: color,
+                            weight: 2,
+                            opacity: 1,
+                            color: 'white',
+                            dashArray: '3',
+                            fillOpacity: 0.7
+                        };
+                    },
+                    onEachFeature: function(feature, layer) {
+                        // 鼠标悬停效果
+                        layer.on({
+                            mouseover: highlightFeature,
+                            mouseout: resetHighlight,
+                            click: zoomToFeature
+                        });
+                        
+                        // 添加弹出信息
+                        if (feature.properties) {
+                            var popupContent = '<div class="popup-content">';
+                            if (feature.properties.name) {
+                                popupContent += '<h3>' + feature.properties.name + '</h3>';
+                            }
+                            if (feature.properties.value !== undefined) {
+                                popupContent += '<p>数值: ' + feature.properties.value + '</p>';
+                            }
+                            if (feature.properties.description) {
+                                popupContent += '<p>' + feature.properties.description + '</p>';
+                            }
+                            // 添加其他属性
+                            var excludedProps = ['name', 'value', 'description'];
+                            for (var key in feature.properties) {
+                                if (!excludedProps.includes(key)) {
+                                    popupContent += '<p><strong>' + key + ':</strong> ' + feature.properties[key] + '</p>';
+                                }
+                            }
+                            popupContent += '</div>';
+                            layer.bindPopup(popupContent);
+                        }
+                    }
+                }).addTo(map);
+
+                // 适应地图范围
+                var bounds = geojsonLayer.getBounds();
+                if (bounds.isValid()) {
+                    map.fitBounds(bounds);
+                    // 添加边界限制，防止用户移出数据区域
+                    map.setMaxBounds(bounds.pad(0.1));
+                }
+
+                // 设置最大缩放级别
+                map.setMaxZoom(18);
+
+                // 添加图例
+                addLegend();
+            })
+            .catch(error => {
+                console.error('加载GeoJSON失败:', error);
+                document.getElementById('loading').innerHTML = 
+                    '加载地图数据失败: ' + error.message + '<br>请检查data/Tarbes_meme_map文件是否存在';
+            });
+
+        // 颜色函数
+        function getColor(d) {
+            // 确保d是数字
+            var value = typeof d === 'number' ? d : 0;
+            
+            return value > 1000 ? '#800026' :
+                   value > 500  ? '#BD0026' :
+                   value > 200  ? '#E31A1C' :
+                   value > 100  ? '#FC4E2A' :
+                   value > 50   ? '#FD8D3C' :
+                   value > 20   ? '#FEB24C' :
+                   value > 10   ? '#FED976' :
+                                  '#FFEDA0';
+        }
+
+        // 高亮要素
+        function highlightFeature(e) {
+            var layer = e.target;
+            layer.setStyle({
+                weight: 4,
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.9
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+        }
+
+        // 重置高亮
+        function resetHighlight(e) {
+            if (geojsonLayer) {
+                geojsonLayer.resetStyle(e.target);
+            }
+        }
+
+        // 缩放至要素
+        function zoomToFeature(e) {
+            var layer = e.target;
+            if (layer.getBounds) {
+                map.fitBounds(layer.getBounds(), { 
+                    padding: [20, 20],
+                    maxZoom: 16 
+                });
+            }
+        }
+
+        // 添加图例
+        function addLegend() {
+            var legend = L.control({position: 'bottomright'});
+            
+            legend.onAdd = function (map) {
+                var div = L.DomUtil.create('div', 'info legend');
+                var grades = [0, 10, 20, 50, 100, 200, 500, 1000];
+                var labels = [];
+                var from, to;
+                
+                div.innerHTML = '<h4>数值图例</h4>';
+                
+                for (var i = 0; i < grades.length; i++) {
+                    from = grades[i];
+                    to = grades[i + 1];
+                    
+                    labels.push(
+                        '<i style="background:' + getColor(from + 1) + '"></i> ' +
+                        from + (to ? '&ndash;' + to : '+')
+                    );
+                }
+                
+                div.innerHTML += labels.join('<br>');
+                return div;
+            };
+            
+            legend.addTo(map);
+        }
+
+        // 窗口大小变化时重绘地图
+        window.addEventListener('resize', function() {
+            map.invalidateSize();
+        });
+
+        // 添加全屏切换按钮（可选功能）
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // 添加全屏按钮
+        L.control.fullscreen({
+            position: 'topleft',
+            title: '切换全屏',
+            titleCancel: '退出全屏',
+            forceSeparateButton: true
+        }).addTo(map);
+    </script>
+</body>
+</html>
