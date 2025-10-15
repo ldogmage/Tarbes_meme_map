@@ -1,1 +1,573 @@
-{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"#196b36","marker-size":"medium","marker-symbol":"circle","name":"德鲁伊体验卡","description":"消耗5欧购入鸟食即可享受"},"geometry":{"coordinates":[0.07560471379252931,43.23820911974124],"type":"Point"},"id":0},{"type":"Feature","properties":{"marker-color":"#ff0000","marker-size":"medium","marker-symbol":"circle","name":"L'Authentique","description":"GOAT"},"geometry":{"coordinates":[0.07165413764874984,43.2339473740322],"type":"Point"},"id":1},{"type":"Feature","properties":{"name":"二战和解点","marker-color":"#000000","marker-size":"medium","marker-symbol":"circle","description":""},"geometry":{"coordinates":[0.07448952008803644,43.23325192632916],"type":"Point"},"id":2},{"type":"Feature","properties":{"name":"子豪撞车处","marker-color":"#000000","marker-size":"medium","marker-symbol":"circle","description":"司机马没了"},"geometry":{"coordinates":[0.10845201407727245,43.21836634277696],"type":"Point"},"id":3},{"type":"Feature","properties":{"marker-color":"#0084ff","marker-size":"medium","marker-symbol":"circle","name":"栋哥炼体处","description":"20年的功夫，接不住"},"geometry":{"coordinates":[0.08787299125950199,43.23357934218416],"type":"Point"},"id":4},{"type":"Feature","properties":{"name":"周皓丢鞋处","marker-color":"#9900ff","marker-size":"medium","marker-symbol":"circle","description":"我鞋呢？"},"geometry":{"coordinates":[0.08775397358792247,43.23359861159983],"type":"Point"},"id":5},{"type":"Feature","properties":{"name":"鸡哥故居1","marker-color":"#ffd500","marker-size":"medium","marker-symbol":"circle","description":"传奇据点 二战战场"},"geometry":{"coordinates":[0.0711875701271083,43.2339893743474],"type":"Point"},"id":6},{"type":"Feature","properties":{"marker-color":"#eeff00","marker-size":"medium","marker-symbol":"circle","name":"Netto","description":"唯一指定物资采购点"},"geometry":{"coordinates":[0.06324325300744249,43.233233873134225],"type":"Point"},"id":7},{"type":"Feature","properties":{"stroke":"#000000","stroke-width":2,"stroke-opacity":1,"fill":"#fff700","fill-opacity":0.5,"name":"STUDRESI-RESISTUD","description":"最大学生据点"},"geometry":{"coordinates":[[[0.061488512705011544,43.23153282200778],[0.061488512705011544,43.23017241907638],[0.06277146064101657,43.23017241907638],[0.06277146064101657,43.23153282200778],[0.061488512705011544,43.23153282200778]]],"type":"Polygon"},"id":8},{"type":"Feature","properties":{"name":"UTTOP","stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#555555","fill-opacity":0.5,"description":"牢笼"},"geometry":{"coordinates":[[[0.046395770144869175,43.227722141933356],[0.046395770144869175,43.22359492686277],[0.05245987817556852,43.22359492686277],[0.05245987817556852,43.227722141933356],[0.046395770144869175,43.227722141933356]]],"type":"Polygon"},"id":9},{"type":"Feature","properties":{"name":"学联烧烤","marker-color":"#ff00a2","marker-size":"medium","marker-symbol":"circle","description":"塔布学联最大规模的烧烤"},"geometry":{"coordinates":[0.04707584932000941,43.229726724355146],"type":"Point"},"id":10},{"type":"Feature","properties":{"marker-color":"#ffdd00","marker-size":"medium","marker-symbol":"circle","name":"桥底bbq","description":"烧烤还是规模小好"},"geometry":{"coordinates":[0.08975558762497826,43.22881360542172],"type":"Point"},"id":11},{"type":"Feature","properties":{"marker-color":"#ff0000","marker-size":"medium","marker-symbol":"circle","name":"周皓骗人处","description":"......."},"geometry":{"coordinates":[0.0823185075315962,43.2302464858266],"type":"Point"},"id":12},{"type":"Feature","properties":{"name":"子豪罚款处","marker-color":"#000000","marker-size":"medium","marker-symbol":"circle","description":"没事，我溜达"},"geometry":{"coordinates":[0.027865963551732875,43.239378263043164],"type":"Point"},"id":13},{"type":"Feature","properties":{"name":"彭桑落井","marker-color":"#000000","marker-size":"medium","marker-symbol":"circle","description":"按寻思这井盖也妹人要啊"},"geometry":{"coordinates":[0.08160500163265283,43.23067687734141],"type":"Point"},"id":14},{"type":"Feature","properties":{"name":"周皓风火轮(铁丝蓉)","marker-color":"#ff0000","marker-size":"medium","marker-symbol":"circle","description":"......"},"geometry":{"coordinates":[0.057928982939699836,43.23628988393256],"type":"Point"},"id":15},{"type":"Feature","properties":{"name":"鸡哥-彭桑故居","marker-color":"#ff9500","marker-size":"medium","marker-symbol":"circle","description":"传奇聚会点，但有人在牢内"},"geometry":{"coordinates":[0.0831549348550027,43.22925909354282],"type":"Point"},"id":16},{"type":"Feature","properties":{"name":"马主席遇刺处","marker-color":"#000000","marker-size":"medium","marker-symbol":"circle","description":"没事，狗已经似了"},"geometry":{"coordinates":[0.060624440913983335,43.230667646439116],"type":"Point"},"id":17},{"type":"Feature","properties":{"name":"狗叫之地","marker-color":"#7e7e7e","marker-size":"medium","marker-symbol":"circle","description":"看给这狗训的"},"geometry":{"coordinates":[0.04573934812725611,43.23353937910545],"type":"Point"},"id":18},{"type":"Feature","properties":{"name":"少女的梦想","marker-color":"#ff0088","marker-size":"medium","marker-symbol":"circle","description":"3===D"},"geometry":{"coordinates":[0.07217935565256539,43.23377042267663],"type":"Point"},"id":19},{"type":"Feature","properties":{"name":"dragon","marker-color":"#ff0000","marker-size":"medium","marker-symbol":"circle","description":"最大亚超"},"geometry":{"coordinates":[0.07074521817753521,43.264270652415945],"type":"Point"},"id":20},{"type":"Feature","properties":{"name":"火车站","marker-color":"#7e7e7e","marker-size":"medium","marker-symbol":"circle","description":"永别了牢笼"},"geometry":{"coordinates":[0.06993328038745972,43.2398112567999],"type":"Point"},"id":21},{"type":"Feature","properties":{"name":"大刘emo处1","marker-color":"#7e7e7e","marker-size":"medium","marker-symbol":"circle","description":""},"geometry":{"coordinates":[0.07342821383917908,43.22921645507725],"type":"Point"},"id":22},{"type":"Feature","properties":{"name":"大刘emo处2","marker-color":"#7e7e7e","marker-size":"medium","marker-symbol":"circle","description":""},"geometry":{"coordinates":[0.07537075033343399,43.22142332855705],"type":"Point"},"id":23},{"type":"Feature","properties":{"marker-color":"#b30505","marker-size":"medium","marker-symbol":"circle","name":"寻血猎犬","description":"我先溜了"},"geometry":{"coordinates":[0.07430901763220277,43.240997280050124],"type":"Point"},"id":24},{"type":"Feature","properties":{"name":"上学路","stroke":"#555555","stroke-width":3,"stroke-opacity":1},"geometry":{"coordinates":[[0.06150882172931915,43.231544793831176],[0.05611695425028529,43.22775993128258],[0.05212784904145451,43.22443800172499],[0.05147030422625676,43.22416648986396],[0.050768923090458884,43.22496505070757]],"type":"LineString"},"id":25},{"type":"Feature","properties":{"name":"上学路2","stroke":"#555555","stroke-width":3,"stroke-opacity":1},"geometry":{"coordinates":[[0.0614388992750321,43.231420894050245],[0.05644212158375694,43.22793042400926],[0.0524129738576562,43.22813847087181],[0.052048129773027085,43.22793042400926],[0.049890790832705534,43.22794198218685],[0.04974802575586068,43.22665901108613]],"type":"LineString"},"id":26}]}
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#196b36",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "德鲁伊体验卡[插入图片]",
+                "description": "消耗5欧购入鸟食即可享受"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.07560471379252931,
+                    43.23820911974124
+                ],
+                "type": "Point"
+            },
+            "id": 0
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "L'Authentique",
+                "description": "GOAT"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.07165413764874984,
+                    43.2339473740322
+                ],
+                "type": "Point"
+            },
+            "id": 1
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "二战和解点",
+                "marker-color": "#000000",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "次日，俞道明力排众议，使二人相约于多米诺，以解前隙。正源曰：“言和自当有礼。”遂双刀赴会而解前怨。\n 事后正源以诗相谢，诗云：“雨落草木尽，沙尘余道明”.（杀神俞道明）"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.07448952008803644,
+                    43.23325192632916
+                ],
+                "type": "Point"
+            },
+            "id": 2
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "子豪撞车处",
+                "marker-color": "#000000",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "陈子豪骑车往郊外赴自助，途中与恶车相触。车之镜碎，豪车表俱毁，而手微伤。众皆惊而问之，其人笑曰：“无事。”众叹曰：“豪海王钢筋铁骨，车不能伤也。”"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.10845201407727245,
+                    43.21836634277696
+                ],
+                "type": "Point"
+            },
+            "id": 3
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#0084ff",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "栋哥炼体处",
+                "description": "金栋好寒练，入河为锻体。其水出比利牛斯雪岭，清冽彻骨。既出，气若云梦，拳有雷声，起而伏，伏而起，如是者三。或曰：“神功成矣。”"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.08787299125950199,
+                    43.23357934218416
+                ],
+                "type": "Point"
+            },
+            "id": 4
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "周皓丢鞋处",
+                "marker-color": "#9900ff",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "同学数人游于阿杜河上。周皓之拖鞋，一只漂去，众方惋惜。皓笑曰：“既去其一，留亦何益？”遂掷其余于水。徐徐言曰：“好汉失履，好汉得之，岂非幸乎？”"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.08775397358792247,
+                    43.23359861159983
+                ],
+                "type": "Point"
+            },
+            "id": 5
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "鸡哥故居1",
+                "marker-color": "#ffd500",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "传奇据点 二战战场 \n 众人会饮，酒酣。薛兴岳忽起，顶盔贯甲，一拳击彭正源，杯盘俱乱。正源大怒，众力劝之，乃止。"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.0711875701271083,
+                    43.2339893743474
+                ],
+                "type": "Point"
+            },
+            "id": 6
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#eeff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "Netto",
+                "description": "唯一指定物资采购点"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.06324325300744249,
+                    43.233233873134225
+                ],
+                "type": "Point"
+            },
+            "id": 7
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "stroke": "#000000",
+                "stroke-width": 2,
+                "stroke-opacity": 1,
+                "fill": "#fff700",
+                "fill-opacity": 0.5,
+                "name": "STUDRESI-RESISTUD",
+                "description": "最大学生据点"
+            },
+            "geometry": {
+                "coordinates": [
+                    [
+                        [
+                            0.061488512705011544,
+                            43.23153282200778
+                        ],
+                        [
+                            0.061488512705011544,
+                            43.23017241907638
+                        ],
+                        [
+                            0.06277146064101657,
+                            43.23017241907638
+                        ],
+                        [
+                            0.06277146064101657,
+                            43.23153282200778
+                        ],
+                        [
+                            0.061488512705011544,
+                            43.23153282200778
+                        ]
+                    ]
+                ],
+                "type": "Polygon"
+            },
+            "id": 8
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "UTTOP",
+                "stroke": "#555555",
+                "stroke-width": 2,
+                "stroke-opacity": 1,
+                "fill": "#555555",
+                "fill-opacity": 0.5,
+                "description": "牢笼"
+            },
+            "geometry": {
+                "coordinates": [
+                    [
+                        [
+                            0.046395770144869175,
+                            43.227722141933356
+                        ],
+                        [
+                            0.046395770144869175,
+                            43.22359492686277
+                        ],
+                        [
+                            0.05245987817556852,
+                            43.22359492686277
+                        ],
+                        [
+                            0.05245987817556852,
+                            43.227722141933356
+                        ],
+                        [
+                            0.046395770144869175,
+                            43.227722141933356
+                        ]
+                    ]
+                ],
+                "type": "Polygon"
+            },
+            "id": 9
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "学联烧烤",
+                "marker-color": "#ff00a2",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "塔布学联最大规模的烧烤"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.04707584932000941,
+                    43.229726724355146
+                ],
+                "type": "Point"
+            },
+            "id": 10
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#ffdd00",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "桥底bbq",
+                "description": "烧烤还是规模小好"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.08975558762497826,
+                    43.22881360542172
+                ],
+                "type": "Point"
+            },
+            "id": 11
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "周皓骗人处",
+                "description": "新年欢宴，众尽兴而归。周皓饮醉，忽而仆地不起。众急趋前扶之，方至，皓跃然而起，笑曰：“适才相戏耳！”"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.0823185075315962,
+                    43.2302464858266
+                ],
+                "type": "Point"
+            },
+            "id": 12
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "子豪罚款处",
+                "marker-color": "#000000",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "新冠疫时禁足，陈子豪夜不能寐，独往郊外散步。警卒巡而得之，遂以违令罚之。子豪怒曰：“法兰西岂有勤勉至夜半而犹巡者哉？”"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.027865963551732875,
+                    43.239378263043164
+                ],
+                "type": "Point"
+            },
+            "id": 13
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "彭桑落井",
+                "marker-color": "#000000",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "彭正源行于途，地方施工，井盖未设，遂堕其中，以双臂撑缘而出。归舍，舍友乃豫人，素有声名。正源指而骂曰：“兔尚不食窝边草，汝竟连兔子亦不如！”"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.08160500163265283,
+                    43.23067687734141
+                ],
+                "type": "Point"
+            },
+            "id": 14
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "周皓风火轮(铁丝蓉)",
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "冬日饭后，周皓于夜中以钢丝绒缠棍两端，旋之甚疾，火花纷飞，灿若繁华。赞曰：“东风夜放花千树，一夜鱼龙舞。”"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.057928982939699836,
+                    43.23628988393256
+                ],
+                "type": "Point"
+            },
+            "id": 15
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "鸡哥-彭桑故居",
+                "marker-color": "#ff9500",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "传奇聚会点，但有人在牢内"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.0831549348550027,
+                    43.22925909354282
+                ],
+                "type": "Point"
+            },
+            "id": 16
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "马主席遇刺处",
+                "marker-color": "#000000",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "马韵然放学归途，忽闻犬吠，惊而退一步，为车所及，遂堕于工坑，伤轻。时移岁久，犬已没，而韵然今攻博士，可谓世事难料。"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.060624440913983335,
+                    43.230667646439116
+                ],
+                "type": "Point"
+            },
+            "id": 17
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "狗叫之地",
+                "marker-color": "#7e7e7e",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "陈子豪往市买菜，途经机修之肆，门有巨犬守之，吠声如雷。子豪神色不动，举手旋指，犬亦随之转圈。今犬犹在，而人已归国。叹曰：去年今日此门中，人狗对面影相融；人面不知何处去，狗狗空自吠天穹。"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.04573934812725611,
+                    43.23353937910545
+                ],
+                "type": "Point"
+            },
+            "id": 18
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "少女的梦想",
+                "marker-color": "#ff0088",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "3===D"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.07217935565256539,
+                    43.23377042267663
+                ],
+                "type": "Point"
+            },
+            "id": 19
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "dragon",
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "最大亚超"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.07074521817753521,
+                    43.264270652415945
+                ],
+                "type": "Point"
+            },
+            "id": 20
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "火车站",
+                "marker-color": "#7e7e7e",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": "永别了牢笼"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.06993328038745972,
+                    43.2398112567999
+                ],
+                "type": "Point"
+            },
+            "id": 21
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "大刘emo处1",
+                "marker-color": "#7e7e7e",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": ""
+            },
+            "geometry": {
+                "coordinates": [
+                    0.07342821383917908,
+                    43.22921645507725
+                ],
+                "type": "Point"
+            },
+            "id": 22
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "大刘emo处2",
+                "marker-color": "#7e7e7e",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "description": ""
+            },
+            "geometry": {
+                "coordinates": [
+                    0.07537075033343399,
+                    43.22142332855705
+                ],
+                "type": "Point"
+            },
+            "id": 23
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#b30505",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "寻血猎犬",
+                "description": "陈子豪行于路，遇恶犬，齿露涎流，而无缚绳。子豪气定神闲，以目视之。未几，犬仓皇而走。叹曰：子豪之威，人马皆惊，何况狗乎？"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.07430901763220277,
+                    43.240997280050124
+                ],
+                "type": "Point"
+            },
+            "id": 24
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "上学路",
+                "stroke": "#555555",
+                "stroke-width": 3,
+                "stroke-opacity": 1
+            },
+            "geometry": {
+                "coordinates": [
+                    [
+                        0.06150882172931915,
+                        43.231544793831176
+                    ],
+                    [
+                        0.05611695425028529,
+                        43.22775993128258
+                    ],
+                    [
+                        0.05212784904145451,
+                        43.22443800172499
+                    ],
+                    [
+                        0.05147030422625676,
+                        43.22416648986396
+                    ],
+                    [
+                        0.050768923090458884,
+                        43.22496505070757
+                    ]
+                ],
+                "type": "LineString"
+            },
+            "id": 25
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "上学路2",
+                "stroke": "#555555",
+                "stroke-width": 3,
+                "stroke-opacity": 1
+            },
+            "geometry": {
+                "coordinates": [
+                    [
+                        0.0614388992750321,
+                        43.231420894050245
+                    ],
+                    [
+                        0.05644212158375694,
+                        43.22793042400926
+                    ],
+                    [
+                        0.0524129738576562,
+                        43.22813847087181
+                    ],
+                    [
+                        0.052048129773027085,
+                        43.22793042400926
+                    ],
+                    [
+                        0.049890790832705534,
+                        43.22794198218685
+                    ],
+                    [
+                        0.04974802575586068,
+                        43.22665901108613
+                    ]
+                ],
+                "type": "LineString"
+            },
+            "id": 26
+        }
+    ]
+}
