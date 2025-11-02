@@ -459,6 +459,7 @@
             },
             "id": 22
         },
+        
         {
             "type": "Feature",
             "properties": {
@@ -477,6 +478,7 @@
             },
             "id": 23
         },
+
         {
             "type": "Feature",
             "properties": {
@@ -495,6 +497,108 @@
             },
             "id": 24
         },
+
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#b30505",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "顺玉米处",
+                "description": "夏夜，严炎与刘正宇散步至郊田，见玉米繁茂，遂各折数穗。归途，正宇顾盼惴惴，似有惧色；炎坦然前行，昂首自若。曰：“天生万物以养人。造物者有无尽藏，而豪杰自取之，何损于天地？”"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.04607552217865418,
+                    43.21705000265456
+                ],
+                "type": "Point"
+            },
+            "id": 25
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#b30505",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "坤哥补糖",
+                "description": "邓炜坤乃塔布博士，以自律闻于众人。尝空腹登楼，怒消三百卡，既下，忽觉眩晕，仆地。尚存一息，唯念“sucre”，遂得法人以葡萄糖救之。自是健身，教练见之，常笑曰：“汝习之，每饭必时！” \n或曰：知耻近乎勇，而炜坤可谓烈。"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.07802169102544099,
+                    43.24337500782619
+                ],
+                "type": "Point"
+            },
+            "id": 26
+        },
+
+        
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#b30505",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "坤哥避浴",
+                "description": "邓炜坤初至法兰西，于家乐福购物，被一意大利老者搭讪。炜坤念初来异国，宜勤学语言，遂与之相加为友。未几，老者邀以咖啡，又约散步，言辞甚殷。\n日方丽，二人会于养马园（Haras）畔，老者坐于长椅，目之良久，忽起而前曰：“佳人可愿与我同床共枕否？与君同浴，共享最高房补，岂不美哉？”炜坤骇然色变，连退数步而去。归即删其联络，永绝往来。\n或曰：浴乎沂水，风乎舞雩，此君子之志；同床共枕，同享房补，此龙阳之癖。此间之别，不可不察。"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.06749700593272223,
+                    43.23212440087585
+                ],
+                "type": "Point"
+            },
+            "id": 27
+        },
+
+
+        
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#b30505",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "L’Arrêt Darré看银河",
+                "description": "Lac de l'Arrêt Darré，水库也。\n嵇钰钦曾夜驾，携正宇、金栋往游。四野无人，灯火俱寂。举首望之，星汉横天，如银练铺长夜空，光映湖面，若天河入凡间水。  \n众人默然，久之，叹曰：长路漫漫，难为井底蛙葬大海，一生求索，不过蚍蜉得见青天;然得此片刻清光，足以忘形于宇宙矣。"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.2003438766192005,
+                    43.233716505222645
+                ],
+                "type": "Point"
+            },
+            "id": 28
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+                "marker-color": "#b30505",
+                "marker-size": "medium",
+                "marker-symbol": "circle",
+                "name": "醉打虎先锋",
+                "description": "《黑神话·悟空》新发，刘正宇与友会于周天博家，共试其戏。正宇饮少辄醉，对阵虎先锋，连战不捷，血气翻腾。拍案曰：“十点之前，必诛此妖！”众皆笑以为醉语。\n至九时四十分，虎先锋授首。或曰：“醉翁之意不在酒，在乎打虎之间也。”"
+            },
+            "geometry": {
+                "coordinates": [
+                    0.06978738731660883,
+                    43.23742249608628
+                ],
+                "type": "Point"
+            },
+            "id": 29
+        },
+
+
+
+
         {
             "type": "Feature",
             "properties": {
