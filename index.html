@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>塔布往事地图</title>
     
-    <!-- 本地Leaflet CSS -->
     <link rel="stylesheet" href="css/leaflet.css" />
     
     <style>
@@ -19,6 +18,7 @@
             font-family: Arial, Helvetica, sans-serif;
             background: #f0f0f0;
         }
+        /* Leaflet Info 和 Legend 样式 */
         .info {
             padding: 6px 8px;
             font: 14px/16px Arial, Helvetica, sans-serif;
@@ -39,6 +39,7 @@
             opacity: 0.7;
             border-radius: 2px;
         }
+        /* 加载提示和头部样式 */
         .loading {
             position: absolute;
             top: 50%;
@@ -50,15 +51,6 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
             text-align: center;
-        }
-        .popup-content h3 {
-            margin-top: 0;
-            color: #333;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-        .popup-content p {
-            margin: 8px 0;
         }
         .header {
             position: absolute;
@@ -75,6 +67,25 @@
             font-size: 18px;
             color: #333;
         }
+        /* Popup 内容样式 */
+        .popup-content h3 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .popup-content p {
+            margin: 8px 0;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 新增：自定义 Marker 样式基础（用于 L.divIcon）         */
+        /* ---------------------------------------------------- */
+        .custom-marker {
+            /* 确保 DivIcon 容器不带默认背景或边框 */
+            background: none !important; 
+            border: none !important;
+        }
     </style>
 </head>
 <body>
@@ -85,11 +96,10 @@
     <div id="map"></div>
     <div id="loading" class="loading">正在加载地图数据...</div>
 
-    <!-- 本地Leaflet JS -->
     <script src="js/leaflet.js"></script>
     
     <script>
-        // 修复Leaflet的图标路径问题
+        // 修复Leaflet的图标路径问题 (用于默认 Marker，但 PointToLayer 会覆盖)
         delete L.Icon.Default.prototype._getIconUrl;
         L.Icon.Default.mergeOptions({
             iconRetinaUrl: 'images/marker-icon-2x.png',
@@ -101,18 +111,70 @@
         var map = L.map('map').setView([39.9, 116.3], 10);
         var geojsonLayer;
 
-        // 添加本地底图图层 - 使用OpenStreetMap，但也可以替换为本地瓦片
-        // 注意：要完全本地化，需要下载并托管地图瓦片，这需要大量存储空间
+        // 添加本地底图图层 - OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 19
         }).addTo(map);
 
+
+        // ====================================================================
+        // 🎯 新增函数：根据 GeoJSON 属性创建自定义样式的 Marker
+        // ====================================================================
+
+        /**
+         * 根据 GeoJSON 的 simplestyle 属性创建自定义样式的 Marker 图标
+         * * @param {object} feature GeoJSON feature对象
+         * @param {L.LatLng} latlng Marker的经纬度
+         * @returns {L.Marker} 带有自定义DivIcon的Marker
+         */
+        function createStyledMarker(feature, latlng) {
+            var props = feature.properties;
+            
+            // 读取 marker-color, marker-size, marker-symbol
+            var color = props['marker-color'] || '#0070ff'; // 默认蓝色
+            var size = props['marker-size'] || 'medium';
+            
+            var iconSize;
+            var markerRadius; // 用于设置圆点的半径
+
+            switch (size.toLowerCase()) {
+                case 'small':
+                    markerRadius = 5;
+                    break;
+                case 'large':
+                    markerRadius = 10;
+                    break;
+                case 'medium':
+                default:
+                    markerRadius = 7.5;
+                    break;
+            }
+            
+            iconSize = markerRadius * 2 + 4; // 容器大小 = 直径 + 边框
+
+            // 创建一个自定义的圆形图标 (DivIcon)
+            var customIcon = L.divIcon({
+                className: 'custom-marker', // 使用 CSS 中的清除样式
+                html: '<div style="background-color: ' + color + '; ' +
+                      'width: ' + (markerRadius * 2) + 'px; ' +
+                      'height: ' + (markerRadius * 2) + 'px; ' +
+                      'border-radius: 50%; ' +
+                      'border: 2px solid #fff; ' +
+                      'box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>',
+                iconSize: [iconSize, iconSize], 
+                iconAnchor: [iconSize / 2, iconSize / 2] // 锚点居中
+            });
+            
+            return L.marker(latlng, { icon: customIcon });
+        }
+
+
         // 加载本地GeoJSON数据
         fetch('data/Tarbes_meme_map.geojson')
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('无法加载地图数据文件');
+                    throw new Error('无法加载地图数据文件 (' + response.status + ')');
                 }
                 return response.json();
             })
@@ -122,20 +184,29 @@
                 
                 // 创建GeoJSON图层
                 geojsonLayer = L.geoJSON(data, {
+                    
+                    // 核心修改：使用 pointToLayer 处理 Point 类型要素，读取 marker-color
+                    pointToLayer: createStyledMarker,
+                    
+                    // style 函数只应用于 Polygon/Polyline (非 Point 类型)
                     style: function(feature) {
-                        // 为不同区域设置不同颜色
-                        var color = getColor(feature.properties.value || 0);
-                        return {
-                            fillColor: color,
-                            weight: 2,
-                            opacity: 1,
-                            color: 'white',
-                            dashArray: '3',
-                            fillOpacity: 0.7
-                        };
+                        if (feature.geometry.type !== 'Point') {
+                            // 为 Polygon/Polyline 设置颜色
+                            var color = getColor(feature.properties.value || 0);
+                            return {
+                                fillColor: color,
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7
+                            };
+                        }
+                        // Point 类型返回空样式，由 pointToLayer 处理
+                        return {};
                     },
                     onEachFeature: function(feature, layer) {
-                        // 鼠标悬停效果
+                        // 鼠标悬停效果 (对 Polygon/Polyline 和 Marker 都有效)
                         layer.on({
                             mouseover: highlightFeature,
                             mouseout: resetHighlight,
@@ -148,16 +219,13 @@
                             if (feature.properties.name) {
                                 popupContent += '<h3>' + feature.properties.name + '</h3>';
                             }
-                            if (feature.properties.value !== undefined) {
-                                popupContent += '<p>数值: ' + feature.properties.value + '</p>';
-                            }
                             if (feature.properties.description) {
                                 popupContent += '<p>' + feature.properties.description + '</p>';
                             }
                             // 添加其他属性
-                            var excludedProps = ['name', 'value', 'description'];
+                            var excludedProps = ['name', 'value', 'description', 'marker-color', 'marker-size', 'marker-symbol'];
                             for (var key in feature.properties) {
-                                if (!excludedProps.includes(key)) {
+                                if (feature.properties.hasOwnProperty(key) && !excludedProps.includes(key)) {
                                     popupContent += '<p><strong>' + key + ':</strong> ' + feature.properties[key] + '</p>';
                                 }
                             }
@@ -171,27 +239,26 @@
                 var bounds = geojsonLayer.getBounds();
                 if (bounds.isValid()) {
                     map.fitBounds(bounds);
-                    // 添加边界限制，防止用户移出数据区域
                     map.setMaxBounds(bounds.pad(0.1));
                 }
 
-                // 设置最大缩放级别
                 map.setMaxZoom(18);
 
-                // 添加图例
-                addLegend();
+                // 添加图例 (如果GeoJSON中包含value属性)
+                if (data.features.some(f => f.properties.value !== undefined)) {
+                     addLegend();
+                }
+               
             })
             .catch(error => {
                 console.error('加载GeoJSON失败:', error);
                 document.getElementById('loading').innerHTML = 
-                    '加载地图数据失败: ' + error.message + '<br>请检查data/Tarbes_meme_map文件是否存在';
+                    '加载地图数据失败: ' + error.message + '<br>请检查 data/Tarbes_meme_map.geojson 文件是否存在';
             });
 
-        // 颜色函数
+        // 颜色函数 (用于 Polygon/Polyline)
         function getColor(d) {
-            // 确保d是数字
             var value = typeof d === 'number' ? d : 0;
-            
             return value > 1000 ? '#800026' :
                    value > 500  ? '#BD0026' :
                    value > 200  ? '#E31A1C' :
@@ -202,28 +269,32 @@
                                   '#FFEDA0';
         }
 
-        // 高亮要素
+        // 高亮要素 (适用于 Polygon/Polyline)
         function highlightFeature(e) {
             var layer = e.target;
-            layer.setStyle({
-                weight: 4,
-                color: '#666',
-                dashArray: '',
-                fillOpacity: 0.9
-            });
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                layer.bringToFront();
+            
+            // 只有 Polygon/Polyline 才需要设置样式
+            if (layer.feature && layer.feature.geometry.type !== 'Point') {
+                layer.setStyle({
+                    weight: 4,
+                    color: '#666',
+                    dashArray: '',
+                    fillOpacity: 0.9
+                });
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
             }
         }
 
-        // 重置高亮
+        // 重置高亮 (适用于 Polygon/Polyline)
         function resetHighlight(e) {
-            if (geojsonLayer) {
+            if (geojsonLayer && e.target.feature && e.target.feature.geometry.type !== 'Point') {
                 geojsonLayer.resetStyle(e.target);
             }
         }
 
-        // 缩放至要素
+        // 缩放至要素 (适用于 Polygon/Polyline)
         function zoomToFeature(e) {
             var layer = e.target;
             if (layer.getBounds) {
@@ -231,6 +302,10 @@
                     padding: [20, 20],
                     maxZoom: 16 
                 });
+            }
+            // 对于 Point 要素，只居中
+            if (layer.getLatLng) {
+                map.setView(layer.getLatLng(), 16);
             }
         }
 
@@ -268,24 +343,17 @@
             map.invalidateSize();
         });
 
-        // 添加全屏切换按钮（可选功能）
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
+        // 添加全屏切换按钮（需要 L.control.fullscreen 插件）
+        // 假设您已经引入了此插件的 JS/CSS
+        if (L.control.fullscreen) {
+             L.control.fullscreen({
+                position: 'topleft',
+                title: '切换全屏',
+                titleCancel: '退出全屏',
+                forceSeparateButton: true
+            }).addTo(map);
         }
 
-        // 添加全屏按钮
-        L.control.fullscreen({
-            position: 'topleft',
-            title: '切换全屏',
-            titleCancel: '退出全屏',
-            forceSeparateButton: true
-        }).addTo(map);
     </script>
 </body>
 </html>
