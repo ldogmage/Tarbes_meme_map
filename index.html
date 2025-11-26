@@ -18,7 +18,7 @@
             font-family: Arial, Helvetica, sans-serif;
             background: #f0f0f0;
         }
-        /* Leaflet Info 和 Legend 样式 */
+        /* ... 其他样式保持不变 ... */
         .info {
             padding: 6px 8px;
             font: 14px/16px Arial, Helvetica, sans-serif;
@@ -39,7 +39,6 @@
             opacity: 0.7;
             border-radius: 2px;
         }
-        /* 加载提示和头部样式 */
         .loading {
             position: absolute;
             top: 50%;
@@ -67,7 +66,6 @@
             font-size: 18px;
             color: #333;
         }
-        /* Popup 内容样式 */
         .popup-content h3 {
             margin-top: 0;
             color: #333;
@@ -79,12 +77,18 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 新增：自定义 Marker 样式基础（用于 L.divIcon）         */
+        /* 修正：确保自定义 Marker 元素不会被默认图标遮挡或干扰 */
         /* ---------------------------------------------------- */
         .custom-marker {
             /* 确保 DivIcon 容器不带默认背景或边框 */
             background: none !important; 
             border: none !important;
+            /* 确保在其他元素之上，防止默认图标影响 */
+            z-index: 600 !important; 
+        }
+        /* 确保自定义图标内部的圆点能正确显示 */
+        .custom-marker div {
+            box-sizing: content-box; /* 确保 padding/border 不影响 width/height */
         }
     </style>
 </head>
@@ -99,7 +103,7 @@
     <script src="js/leaflet.js"></script>
     
     <script>
-        // 修复Leaflet的图标路径问题 (用于默认 Marker，但 PointToLayer 会覆盖)
+        // 修复Leaflet的图标路径问题 (用于默认 Marker，防止 Fallback)
         delete L.Icon.Default.prototype._getIconUrl;
         L.Icon.Default.mergeOptions({
             iconRetinaUrl: 'images/marker-icon-2x.png',
@@ -111,51 +115,40 @@
         var map = L.map('map').setView([39.9, 116.3], 10);
         var geojsonLayer;
 
-        // 添加本地底图图层 - OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: 19
-        }).addTo(map);
-
 
         // ====================================================================
-        // 🎯 新增函数：根据 GeoJSON 属性创建自定义样式的 Marker
+        // 🎯 修正后的函数：根据 GeoJSON 属性创建自定义样式的 Marker
         // ====================================================================
-
-        /**
-         * 根据 GeoJSON 的 simplestyle 属性创建自定义样式的 Marker 图标
-         * * @param {object} feature GeoJSON feature对象
-         * @param {L.LatLng} latlng Marker的经纬度
-         * @returns {L.Marker} 带有自定义DivIcon的Marker
-         */
         function createStyledMarker(feature, latlng) {
             var props = feature.properties;
             
-            // 读取 marker-color, marker-size, marker-symbol
-            var color = props['marker-color'] || '#0070ff'; // 默认蓝色
+            // 读取 marker-color, marker-size
+            // 确保读取到的颜色是有效的，如果读取失败，则使用默认值
+            var color = props['marker-color'] || '#0070ff'; 
             var size = props['marker-size'] || 'medium';
             
             var iconSize;
             var markerRadius; // 用于设置圆点的半径
 
+            // 根据 simplestyle 的 size 属性设置圆点大小
             switch (size.toLowerCase()) {
                 case 'small':
-                    markerRadius = 5;
+                    markerRadius = 5; // 直径 10px
                     break;
                 case 'large':
-                    markerRadius = 10;
+                    markerRadius = 10; // 直径 20px
                     break;
                 case 'medium':
                 default:
-                    markerRadius = 7.5;
+                    markerRadius = 7.5; // 直径 15px
                     break;
             }
             
-            iconSize = markerRadius * 2 + 4; // 容器大小 = 直径 + 边框
+            iconSize = markerRadius * 2 + 4; // 容器大小 = 直径 + 边框(2px*2)
 
             // 创建一个自定义的圆形图标 (DivIcon)
             var customIcon = L.divIcon({
-                className: 'custom-marker', // 使用 CSS 中的清除样式
+                className: 'custom-marker', 
                 html: '<div style="background-color: ' + color + '; ' +
                       'width: ' + (markerRadius * 2) + 'px; ' +
                       'height: ' + (markerRadius * 2) + 'px; ' +
@@ -185,13 +178,12 @@
                 // 创建GeoJSON图层
                 geojsonLayer = L.geoJSON(data, {
                     
-                    // 核心修改：使用 pointToLayer 处理 Point 类型要素，读取 marker-color
+                    // Point 类型交给自定义函数处理
                     pointToLayer: createStyledMarker,
                     
                     // style 函数只应用于 Polygon/Polyline (非 Point 类型)
                     style: function(feature) {
                         if (feature.geometry.type !== 'Point') {
-                            // 为 Polygon/Polyline 设置颜色
                             var color = getColor(feature.properties.value || 0);
                             return {
                                 fillColor: color,
@@ -202,11 +194,10 @@
                                 fillOpacity: 0.7
                             };
                         }
-                        // Point 类型返回空样式，由 pointToLayer 处理
                         return {};
                     },
                     onEachFeature: function(feature, layer) {
-                        // 鼠标悬停效果 (对 Polygon/Polyline 和 Marker 都有效)
+                        // 鼠标悬停效果
                         layer.on({
                             mouseover: highlightFeature,
                             mouseout: resetHighlight,
@@ -222,10 +213,12 @@
                             if (feature.properties.description) {
                                 popupContent += '<p>' + feature.properties.description + '</p>';
                             }
-                            // 添加其他属性
+                            
+                            // 修正：确保 marker- 属性被排除
                             var excludedProps = ['name', 'value', 'description', 'marker-color', 'marker-size', 'marker-symbol'];
                             for (var key in feature.properties) {
-                                if (feature.properties.hasOwnProperty(key) && !excludedProps.includes(key)) {
+                                // 检查 key 是否在排除列表中，并且确保属性值不为空
+                                if (feature.properties.hasOwnProperty(key) && !excludedProps.includes(key) && feature.properties[key] !== null && feature.properties[key] !== undefined) {
                                     popupContent += '<p><strong>' + key + ':</strong> ' + feature.properties[key] + '</p>';
                                 }
                             }
@@ -244,7 +237,6 @@
 
                 map.setMaxZoom(18);
 
-                // 添加图例 (如果GeoJSON中包含value属性)
                 if (data.features.some(f => f.properties.value !== undefined)) {
                      addLegend();
                 }
@@ -269,11 +261,9 @@
                                   '#FFEDA0';
         }
 
-        // 高亮要素 (适用于 Polygon/Polyline)
+        // 高亮要素 和 重置高亮逻辑（未修改）...
         function highlightFeature(e) {
             var layer = e.target;
-            
-            // 只有 Polygon/Polyline 才需要设置样式
             if (layer.feature && layer.feature.geometry.type !== 'Point') {
                 layer.setStyle({
                     weight: 4,
@@ -287,14 +277,12 @@
             }
         }
 
-        // 重置高亮 (适用于 Polygon/Polyline)
         function resetHighlight(e) {
             if (geojsonLayer && e.target.feature && e.target.feature.geometry.type !== 'Point') {
                 geojsonLayer.resetStyle(e.target);
             }
         }
 
-        // 缩放至要素 (适用于 Polygon/Polyline)
         function zoomToFeature(e) {
             var layer = e.target;
             if (layer.getBounds) {
@@ -303,16 +291,14 @@
                     maxZoom: 16 
                 });
             }
-            // 对于 Point 要素，只居中
             if (layer.getLatLng) {
                 map.setView(layer.getLatLng(), 16);
             }
         }
 
-        // 添加图例
+        // 添加图例（未修改）...
         function addLegend() {
             var legend = L.control({position: 'bottomright'});
-            
             legend.onAdd = function (map) {
                 var div = L.DomUtil.create('div', 'info legend');
                 var grades = [0, 10, 20, 50, 100, 200, 500, 1000];
@@ -324,27 +310,23 @@
                 for (var i = 0; i < grades.length; i++) {
                     from = grades[i];
                     to = grades[i + 1];
-                    
                     labels.push(
                         '<i style="background:' + getColor(from + 1) + '"></i> ' +
                         from + (to ? '&ndash;' + to : '+')
                     );
                 }
-                
                 div.innerHTML += labels.join('<br>');
                 return div;
             };
-            
             legend.addTo(map);
         }
 
-        // 窗口大小变化时重绘地图
+        // 窗口大小变化时重绘地图（未修改）...
         window.addEventListener('resize', function() {
             map.invalidateSize();
         });
 
-        // 添加全屏切换按钮（需要 L.control.fullscreen 插件）
-        // 假设您已经引入了此插件的 JS/CSS
+        // 添加全屏切换按钮（未修改）...
         if (L.control.fullscreen) {
              L.control.fullscreen({
                 position: 'topleft',
