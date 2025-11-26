@@ -18,7 +18,7 @@
             font-family: Arial, Helvetica, sans-serif;
             background: #f0f0f0;
         }
-        /* ... 其他样式保持不变 ... */
+        /* Leaflet Info 和 Legend 样式 */
         .info {
             padding: 6px 8px;
             font: 14px/16px Arial, Helvetica, sans-serif;
@@ -39,6 +39,7 @@
             opacity: 0.7;
             border-radius: 2px;
         }
+        /* 加载提示和头部样式 */
         .loading {
             position: absolute;
             top: 50%;
@@ -66,6 +67,7 @@
             font-size: 18px;
             color: #333;
         }
+        /* Popup 内容样式 */
         .popup-content h3 {
             margin-top: 0;
             color: #333;
@@ -112,39 +114,47 @@
         });
 
         // 初始化地图
-        var map = L.map('map').setView([39.9, 116.3], 10);
+        // 确保 GeoJSON 位于地图可视范围，否则底图可能不显示
+        var map = L.map('map').setView([43.235, 0.075], 14); // 调整到法国塔布附近
+
         var geojsonLayer;
+
+        // ====================================================================
+        // 📌 恢复底图瓦片图层 (OpenStreetMap)
+        // ====================================================================
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
 
 
         // ====================================================================
-        // 🎯 修正后的函数：根据 GeoJSON 属性创建自定义样式的 Marker
+        // 🎯 函数：根据 GeoJSON 属性创建自定义样式的 Marker
         // ====================================================================
         function createStyledMarker(feature, latlng) {
             var props = feature.properties;
             
             // 读取 marker-color, marker-size
-            // 确保读取到的颜色是有效的，如果读取失败，则使用默认值
             var color = props['marker-color'] || '#0070ff'; 
             var size = props['marker-size'] || 'medium';
             
             var iconSize;
-            var markerRadius; // 用于设置圆点的半径
+            var markerRadius; 
 
-            // 根据 simplestyle 的 size 属性设置圆点大小
             switch (size.toLowerCase()) {
                 case 'small':
-                    markerRadius = 5; // 直径 10px
+                    markerRadius = 5; 
                     break;
                 case 'large':
-                    markerRadius = 10; // 直径 20px
+                    markerRadius = 10; 
                     break;
                 case 'medium':
                 default:
-                    markerRadius = 7.5; // 直径 15px
+                    markerRadius = 7.5; 
                     break;
             }
             
-            iconSize = markerRadius * 2 + 4; // 容器大小 = 直径 + 边框(2px*2)
+            iconSize = markerRadius * 2 + 4; 
 
             // 创建一个自定义的圆形图标 (DivIcon)
             var customIcon = L.divIcon({
@@ -261,7 +271,7 @@
                                   '#FFEDA0';
         }
 
-        // 高亮要素 和 重置高亮逻辑（未修改）...
+        // 高亮要素 和 重置高亮逻辑
         function highlightFeature(e) {
             var layer = e.target;
             if (layer.feature && layer.feature.geometry.type !== 'Point') {
@@ -296,7 +306,7 @@
             }
         }
 
-        // 添加图例（未修改）...
+        // 添加图例
         function addLegend() {
             var legend = L.control({position: 'bottomright'});
             legend.onAdd = function (map) {
@@ -321,12 +331,12 @@
             legend.addTo(map);
         }
 
-        // 窗口大小变化时重绘地图（未修改）...
+        // 窗口大小变化时重绘地图
         window.addEventListener('resize', function() {
             map.invalidateSize();
         });
 
-        // 添加全屏切换按钮（未修改）...
+        // 添加全屏切换按钮（如果使用了插件）
         if (L.control.fullscreen) {
              L.control.fullscreen({
                 position: 'topleft',
